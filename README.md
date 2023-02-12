@@ -5,5 +5,5 @@ Developers List
 * Sergey Volkov
 * Aleksandr Markov
 * Ilya Ershov
-
+* Maksim Bamburov
 
