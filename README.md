@@ -6,3 +6,4 @@ Developers List
 * Aleksandr Markov
 * Maksim Bamburov
 
+<image src="db.png" alt="db">
