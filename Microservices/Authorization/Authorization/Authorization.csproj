@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Authorization.ApplicationServices\Authorization.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Authorization.DataAccessServices\Authorization.DataAccessServices.csproj" />
     <ProjectReference Include="..\UserDbSevice\UserDbSevice.csproj" />
   </ItemGroup>
 

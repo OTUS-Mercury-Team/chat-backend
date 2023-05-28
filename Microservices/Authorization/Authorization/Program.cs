@@ -6,6 +6,7 @@ using DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Authorization.ApplicationServices;
+using Authorization.DataAccessServices;
 
 string logDirectory = "logs"; // Имя директории для хранения логов
 string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss"); // Текущая дата и время в формате yyyyMMdd_HHmmss
@@ -65,6 +66,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IGetUser, UsersDbWorker>();
 builder.Services.AddScoped<IUserService, UserService >();
+
+
+builder.Services.AddSingleton<IDataAcces, DataAccessSercices>();
 
 var app = builder.Build();
 

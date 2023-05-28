@@ -81,7 +81,8 @@ namespace UserDbSevice
                 {
                     new UserData { Username = "Serg", Password = "otus" },
                     new UserData { Username = "Alex", Password = "otus" },
-                    new UserData { Username = "Max", Password = "otus" }
+                    new UserData { Username = "Max", Password = "otus" },
+                    new UserData { Username = "string", Password = "string" }
                 };
 
                 foreach (UserData user in users)
