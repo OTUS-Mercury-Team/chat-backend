@@ -6,4 +6,5 @@ Developers List
 * Aleksandr Markov
 * Ilya Ershov
 * Maksim Bamburov
+* Sergey Beymanov
 
