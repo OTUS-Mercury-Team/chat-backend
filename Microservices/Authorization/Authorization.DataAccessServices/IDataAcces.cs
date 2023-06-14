@@ -8,6 +8,6 @@ namespace Authorization.DataAccessServices
 {
     public interface IDataAcces
     {
-        Task<string?> ValidateToken(string token);
+        Task<uint?> ValidateToken(string token);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Authorization.ApplicationServices;
+using DataAccess;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,7 +9,14 @@ namespace Authorization.DataAccessServices
 {
     public class DataAccessSercices : IDataAcces
     {
-        public Task<string?> ValidateToken(string token)
+        IGetUser getUser;
+
+        public DataAccessSercices(IGetUser getUser)
+        {
+            this.getUser = getUser;
+        }
+
+        public async Task<uint?> ValidateToken(string token)
         {
             if (token == null)
                 return null;
@@ -39,17 +47,28 @@ namespace Authorization.DataAccessServices
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var rrre = jwtToken.Claims.First(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
-                //var ress = jwtToken.Claims.First(x => x.Type == "name").Value;
                 var username = string.Format(rrre);
 
                 // return user id from JWT token if validation successful
-                return Task.FromResult(username);
+                return await GetIdentity(username);
             }
             catch
             {
                 // return null if validation fails
                 return null;
             }
+        }
+
+
+        private async Task<uint?> GetIdentity(string username)
+        {
+            var users = getUser.GetUser();
+            var person = users.FirstOrDefault(x => x.Username == username );
+            if (person != null)
+            {
+                return person.Id;
+            }
+            return null;
         }
     }
 }
