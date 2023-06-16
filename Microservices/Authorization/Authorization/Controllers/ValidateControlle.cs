@@ -1,7 +1,5 @@
 ﻿using Authorization.ApplicationServices.User.Ports;
 using Microsoft.AspNetCore.Mvc;
-using Authorization.ApplicationServices.User.Ports.Contracts.Request;
-using Authorization.ApplicationServices.User.Ports.Contracts.Response;
 using Authorization.DataAccessServices;
 
 namespace Authorization.Controllers

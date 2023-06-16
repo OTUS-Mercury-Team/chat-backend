@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\CommonAuth\CommonAuth.csproj" />
     <ProjectReference Include="..\Authorization.DataAccess\Authorization.DataAccess.csproj" />
   </ItemGroup>
 
