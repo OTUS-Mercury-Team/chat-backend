@@ -16,9 +16,9 @@ namespace Authorization.Controllers
         }
 
         [HttpPost("validate")]
-        public Task<uint?> Validate(string token)
+        public async Task<uint?> Validate(string token)
         {
-            return _dataAcces.ValidateToken(token);
+            return await _dataAcces.ValidateToken(token);
         }
     }
 }
