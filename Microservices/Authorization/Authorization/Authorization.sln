@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.DataAccess", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDbSevice", "..\UserDbSevice\UserDbSevice.csproj", "{7DF29228-8332-4547-BFDF-2589867868BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.DataAccessServices", "..\Authorization.DataAccessServices\Authorization.DataAccessServices.csproj", "{13063079-0AAC-4477-BE9E-61A55229ECB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.DataAccessServices", "..\Authorization.DataAccessServices\Authorization.DataAccessServices.csproj", "{13063079-0AAC-4477-BE9E-61A55229ECB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonAuth", "..\..\Common\CommonAuth\CommonAuth.csproj", "{5AF52BFD-AC9E-4D9B-B554-3FA0BFE0949A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{13063079-0AAC-4477-BE9E-61A55229ECB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13063079-0AAC-4477-BE9E-61A55229ECB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13063079-0AAC-4477-BE9E-61A55229ECB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF52BFD-AC9E-4D9B-B554-3FA0BFE0949A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF52BFD-AC9E-4D9B-B554-3FA0BFE0949A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF52BFD-AC9E-4D9B-B554-3FA0BFE0949A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF52BFD-AC9E-4D9B-B554-3FA0BFE0949A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
-﻿using Authorization.ApplicationServices.User.Ports;
-using Authorization.ApplicationServices.User.Ports.Contracts.Request;
-using Authorization.ApplicationServices.User.Ports.Contracts.Response;
+﻿using ACommonAuth.Contracts.Request;
+using Authorization.ApplicationServices.User.Ports;
+using CommonAuth.Contracts.Response;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

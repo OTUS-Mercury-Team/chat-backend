@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authorization.ApplicationServices.User.Ports.Contracts.Request;
+namespace ACommonAuth.Contracts.Request;
 
 public record LoginModel
 {

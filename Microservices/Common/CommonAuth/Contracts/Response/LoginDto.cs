@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authorization.ApplicationServices.User.Ports.Contracts.Response;
+namespace CommonAuth.Contracts.Response;
 
 public class LoginDto
 {
