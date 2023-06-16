@@ -17,9 +17,9 @@ namespace Authorization.Controllers
         }
 
         [HttpPost("login")]
-        public Task<LoginDto> Login(LoginModel loginModel)
+        public async Task<LoginDto> Login(LoginModel loginModel)
         {
-            return _userService.Login(loginModel);
+            return await _userService.Login(loginModel);
         }
     }
 }
