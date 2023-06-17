@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ACommonAuth.Contracts.Request;
 
 public record LoginModel
 {
     [Required]
-    public string UserName { get; init; }
+    public string UserName { get; init; };
 
     [Required]
-    public string Password { get; init; }
+    public string Password { get; init; };
 }
