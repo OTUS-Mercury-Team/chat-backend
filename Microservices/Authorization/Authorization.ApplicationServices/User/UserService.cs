@@ -28,8 +28,8 @@ public class UserService : IUserService
 
     public async Task<bool> CreateUserModel(CreateUserModel model)
     {
-        var identity = GetIdentity(model.UserName);
-        if (identity != null)
+        var identity = await FindUser(model.UserName);
+        if (identity ==  true)
         {
             return false;
         }
@@ -86,24 +86,16 @@ public class UserService : IUserService
         return null;
     }
 
-    private async Task<ClaimsIdentity?> GetIdentity(string username)
+    private async Task<bool?> FindUser(string username)
     {
         var users = await getUser.GetUser();
         var person = users.FirstOrDefault(x => x.Username == username);
         if (person == null)
         {
-            return null;
+            return false;
         }
 
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Username!)
-                    //new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
-                };
-            ClaimsIdentity claimsIdentity =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
         // если пользователя не найдено
-        return claimsIdentity;
+        return true;
     }
 }
