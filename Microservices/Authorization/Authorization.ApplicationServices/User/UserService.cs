@@ -1,5 +1,6 @@
 ﻿using ACommonAuth.Contracts.Request;
 using Authorization.ApplicationServices.User.Ports;
+using CommonAuth.Contracts.Request;
 using CommonAuth.Contracts.Response;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,31 @@ namespace Authorization.ApplicationServices.User;
 public class UserService : IUserService
 {
     IGetUser getUser;
+    ICreateUser createUser;
 
-    public UserService(IGetUser getUser)
+    public UserService(IGetUser getUser, ICreateUser createUser)
     {
         this.getUser = getUser;
+        this.createUser = createUser;
     }
 
-    public Task<LoginDto> Login(LoginModel model)
+    public async Task<bool> CreateUserModel(CreateUserModel model)
+    {
+        var identity = await FindUser(model.UserName);
+        if (identity ==  true)
+        {
+            return false;
+        }
+       return await  createUser.AddUser(new UserData() { Username = model.UserName, Password = model.Password  , Email = model.Email});
+    }
+
+    public async  Task<LoginDto> Login(LoginModel model)
     {
 
-        var identity = GetIdentity(model.UserName, model.Password);
+        var identity = await GetIdentity(model.UserName, model.Password);
         if (identity == null)
         {
-            return Task.FromResult(new LoginDto() {LoginResult = eLoginResult.BadPassword });
+            return new LoginDto() {LoginResult = eLoginResult.BadPassword };
         }
 
         var now = DateTime.UtcNow;
@@ -49,12 +62,12 @@ public class UserService : IUserService
             UserName = identity.Name
         };
 
-        return Task.FromResult(response);
+        return response;
     }
 
-    private ClaimsIdentity? GetIdentity(string username, string password)
+    private async Task<ClaimsIdentity?> GetIdentity(string username, string password)
     {
-        var users = getUser.GetUser();
+        var users = await getUser.GetUser();
         var person = users.FirstOrDefault(x => x.Username == username && x.Password == password);
         if (person != null)
         {
@@ -71,5 +84,18 @@ public class UserService : IUserService
 
         // если пользователя не найдено
         return null;
+    }
+
+    private async Task<bool?> FindUser(string username)
+    {
+        var users = await getUser.GetUser();
+        var person = users.FirstOrDefault(x => x.Username == username);
+        if (person == null)
+        {
+            return false;
+        }
+
+        // если пользователя не найдено
+        return true;
     }
 }

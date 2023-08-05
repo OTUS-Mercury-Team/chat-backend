@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace UserDbSevice
@@ -16,13 +17,13 @@ namespace UserDbSevice
             };
         }
 
-        public bool AddUser(UserData user)
+        public async Task<bool> AddUser(UserData user)
         {
             bool res = true;
             try
             {
-                var t = db.Users.Add(user);
-                var i = db.SaveChanges();
+                var t = await db.Users.AddAsync(user);
+                var i =  await db.SaveChangesAsync();
                 if (i == 0)
                     res = false;
             }
@@ -54,13 +55,13 @@ namespace UserDbSevice
             return res;
         }
 
-        public UserData[] GetUser()
+        public async Task<UserData[]> GetUser()
         {
             bool res = true;
             try
             {
 
-                return db.Users.ToArray();
+                return await db.Users.ToArrayAsync();
             }
             catch (Exception e)
             {

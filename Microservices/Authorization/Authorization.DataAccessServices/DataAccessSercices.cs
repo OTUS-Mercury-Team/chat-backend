@@ -62,8 +62,8 @@ namespace Authorization.DataAccessServices
 
         private async Task<uint?> GetIdentity(string username)
         {
-            var users = getUser.GetUser();
-            var person = users.FirstOrDefault(x => x.Username == username );
+            var users = await getUser.GetUser();
+            var person =  users.FirstOrDefault(x => x.Username == username);
             if (person != null)
             {
                 return person.Id;

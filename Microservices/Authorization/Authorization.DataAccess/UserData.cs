@@ -21,5 +21,10 @@ namespace DataAccess
         [Column(name: "password")]
         public string Password { get; set; } //   логин
 
+        [MaybeNullAttribute]
+        [StringLength(maximumLength: 16)]
+        [Column(name: "email")]
+        public string Email { get; set; } //   Email
+
     }
 }

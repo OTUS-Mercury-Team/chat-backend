@@ -4,7 +4,6 @@
 Developers List
 * Sergey Volkov
 * Aleksandr Markov
-* Ilya Ershov
 * Maksim Bamburov
-* Sergey Beymanov
 
+<image src="db.png" alt="db">

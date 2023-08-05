@@ -65,6 +65,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IGetUser, UsersDbWorker>();
+builder.Services.AddTransient<ICreateUser, UsersDbWorker>();
 builder.Services.AddScoped<IUserService, UserService >();
 
 

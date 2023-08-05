@@ -2,7 +2,7 @@
 {
     public interface IGetUser
     {
-        UserData[] GetUser();
+       Task< UserData[]> GetUser();
     }
     public interface IDeleteUser
     {
@@ -10,6 +10,6 @@
     }
     public interface ICreateUser
     {
-        bool AddUser(UserData user);
+        Task<bool> AddUser(UserData user);
     }
 }
