@@ -19,5 +19,9 @@ namespace CommonBack.Messages
         [Required]
         [Column(name: "userfrom")]
         public int UserFrom { get; set; }
+
+        [Required]
+        [Column(name: "body")]
+        public string Body { get; set; } = "";
     }
 }
