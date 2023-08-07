@@ -10,6 +10,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        MessagesThread infoThread = new MessagesThread();
         var factory = new ConnectionFactory() { HostName = "localhost" };
         using (var connection = factory.CreateConnection())
         using (var channel = connection.CreateModel())
@@ -39,9 +40,9 @@ internal class Program
                         db.SaveChanges();
                         Console.WriteLine("Новое сообщение добавлено в БД");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("Error write in DB!");
+                        Console.WriteLine("Error write in DB! " + ex.Message);
                         // res = false;
                     }
                 }

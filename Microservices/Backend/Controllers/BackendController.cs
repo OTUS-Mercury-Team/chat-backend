@@ -38,7 +38,7 @@ namespace Backend.Controllers
             //LoginDto loginDto = new LoginDto();
             //loginDto.UserName = loginModel.UserName;
             return loginDto;
-           
+
         }
 
         [HttpPost("newmessage")] // отправляем в брокер
@@ -64,7 +64,8 @@ namespace Backend.Controllers
             return true;
         }
 
-        [HttpGet("{id:long}")]
+        [HttpGet]
+        [Route("chatsbyuser/{id:long}")]
         public List<Chat> GetChatsByUser(long id)
         {
             var t = db.Chats.Where(r => r.Users.Any(i => i.Id == id)).ToList();
@@ -74,7 +75,28 @@ namespace Backend.Controllers
 
         //[HttpPost("getchatsbyuser")] - 
 
-        //[HttpPost("getmessagesbychatid")]
+        [HttpPost("messagesbychatidanduserid")]
+        public async Task<List<Message>> GetMessagesByChatIdandUserId(long userId, long chatId)
+        {
+
+            List<Message> messages = new List<Message>();
+
+            HttpClient httpClient = new HttpClient();
+        
+            using var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:1088");
+           // request.pa
+            string param = $"userId={userId}&chatId={chatId}";
+            // установка отправляемого содержимого
+            HttpContent content = new StringContent(param, Encoding.UTF8, "application/json");
+            
+            request.Content = content;
+            
+            // отправляем запрос
+            using var response = await httpClient.SendAsync(request);
+            // получаем ответ
+            string responseText = await response.Content.ReadAsStringAsync();
+            return messages;
+        }
 
     }
 }
