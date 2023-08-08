@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using CommonBack.Messages;
+using Newtonsoft.Json;
+using System.Net;
+using System.Text;
 
 namespace RabbitMQService
 {
@@ -35,7 +38,7 @@ namespace RabbitMQService
                         foreach (var item in bodyArr)
                         {
                             var paramArr = item.Split('=');
-                            
+
                             if (paramArr.Count() > 1)
                             {
                                 if (paramArr[0] == "userId")
@@ -47,24 +50,41 @@ namespace RabbitMQService
                                 {
                                     chatId = int.Parse(paramArr[1]);
                                 }
-                            }                            
-                        }                       
+                            }
+                        }
                     }
-                    //byte[] b = Encoding.UTF8.GetBytes("ACK");
 
-                    response.ContentType = "application/json";
+                    using (MessageContext db = new MessageContext())
+                    {
 
-                    // var ss = context.Request.Url.AbsolutePath;
+                        try
+                        {
+                            var messages = db.Messages.Where(s => s.UserFrom == userId && s.ChatId == chatId).ToList();
+                            response.ContentType = "application/json";
+                            var responseBody = JsonConvert.SerializeObject(messages);
+                            int bodylen = responseBody.Length;
+                            var buffer = Encoding.UTF8.GetBytes(responseBody, 0, bodylen);
+                            response.StatusCode = 200;
 
+                            try
+                            {
+                                await response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+                            }
+                            catch (Exception)
+                            {
+                                context.Response.StatusCode = 404;
+                                return (false, this);
+                            }
 
-
-                    // var responseBody = JsonConvert.SerializeObject(dataManagerState);
-                    //int bodylen = responseBody.Length;
-
-                    response.StatusCode = 200;
-
-
-
+                            Console.WriteLine("Сообщения получены!");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error read from DB! " + ex.Message);
+                           
+                        }
+                    }
+                    
                     response.OutputStream.Close();
                 }
                 else

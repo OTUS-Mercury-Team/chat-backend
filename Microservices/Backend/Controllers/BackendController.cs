@@ -82,19 +82,22 @@ namespace Backend.Controllers
             List<Message> messages = new List<Message>();
 
             HttpClient httpClient = new HttpClient();
-        
+
             using var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:1088");
-           // request.pa
+            // request.pa
             string param = $"userId={userId}&chatId={chatId}";
             // установка отправляемого содержимого
             HttpContent content = new StringContent(param, Encoding.UTF8, "application/json");
-            
+
             request.Content = content;
-            
+
             // отправляем запрос
             using var response = await httpClient.SendAsync(request);
             // получаем ответ
             string responseText = await response.Content.ReadAsStringAsync();
+
+            messages = JsonSerializer.Deserialize<List<Message>>(responseText);
+
             return messages;
         }
 
