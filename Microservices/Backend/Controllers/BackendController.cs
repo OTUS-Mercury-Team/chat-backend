@@ -6,6 +6,7 @@ using CommonBack.Messages;
 using CommonBack.Models;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
@@ -26,23 +27,32 @@ namespace Backend.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<LoginDto> GetMessageAsync(LoginModel loginModel)
+        public async Task<LoginDto?> GetMessageAsync(LoginModel loginModel)
         {
 
             HttpClient client = new HttpClient();
-
-            client.BaseAddress = new Uri("https://localhost:8227/api/Auth/login");
-            var response = await client.PostAsJsonAsync("https://localhost:8227/api/Auth/login", loginModel);
-            LoginDto? loginDto = await response.Content.ReadFromJsonAsync<LoginDto>();
-
+            LoginDto? loginDto =null;
+            try
+            {
+                client.BaseAddress = new Uri("http://localhost:5088/api/Auth/login");
+                var response = await client.PostAsJsonAsync("http://localhost:5088/api/Auth/login", loginModel);
+                loginDto = await response.Content.ReadFromJsonAsync<LoginDto>();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
             //LoginDto loginDto = new LoginDto();
             //loginDto.UserName = loginModel.UserName;
             return loginDto;
 
         }
 
+
+        
+
         [HttpPost("newmessage")] // отправляем в брокер
-        public bool NewMessageAsync(Message message)
+        public static bool NewMessageAsync(Message message)
         {
             string jsonString = JsonSerializer.Serialize(message);
             var factory = new ConnectionFactory() { HostName = "localhost" };

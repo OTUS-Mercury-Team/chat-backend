@@ -1,6 +1,7 @@
 ﻿using Authorization.ApplicationServices.User.Ports;
 using Microsoft.AspNetCore.Mvc;
 using Authorization.DataAccessServices;
+using ACommonAuth.Contracts.Request;
 
 namespace Authorization.Controllers
 {
@@ -16,9 +17,10 @@ namespace Authorization.Controllers
         }
 
         [HttpPost("validate")]
-        public async Task<uint?> Validate(string token)
+        public async Task<int?> Validate(ValidModel token)
         {
-            return await _dataAcces.ValidateToken(token);
+            var res = await _dataAcces.ValidateToken(token.Jwt);
+            return (int)res;
         }
     }
 }
