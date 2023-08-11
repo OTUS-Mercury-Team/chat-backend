@@ -1,5 +1,6 @@
 ﻿using CommonBack.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Backend.db
 {
@@ -13,8 +14,16 @@ namespace Backend.db
         public UserChatContextcs()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-           // Database.EnsureDeleted();
-            Database.EnsureCreated();
+            // Database.EnsureDeleted();
+
+            try
+            {
+                Database.EnsureCreated();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,7 +35,7 @@ namespace Backend.db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userchat;Username=postgres;Password=admin");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userchat;Username=postgres;Password=postgres");
         }
     }
 }
