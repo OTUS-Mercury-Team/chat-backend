@@ -31,7 +31,7 @@ namespace Backend.Controllers
         [HttpPost("newmessage")] // отправляем в брокер\
         public IActionResult NewMessage(Message message)
         {
-            bool res = _messageService.NewMessageAsync(message);
+            bool res = _messageService.NewMessage(message);
             if (res)
             {
                 return Ok(res);

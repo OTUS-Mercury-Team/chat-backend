@@ -63,7 +63,7 @@ namespace Backend.Services
             return loginDto;
         }
 
-        public bool NewMessageAsync(Message message)
+        public bool NewMessage(Message message)
         {
             bool res = false;   
             try

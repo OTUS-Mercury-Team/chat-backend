@@ -1,5 +1,6 @@
 ﻿using ACommonAuth.Contracts.Request;
 using Backend.Controllers;
+using Backend.Services;
 using CommonBack.Messages;
 using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel.DataAnnotations;
@@ -24,8 +25,8 @@ public class ChatHub : Hub
             if (int.TryParse(chat_id, out id_chat)) {
                 m_message.ChatId = id_chat;
             }
-
-            bool res = BackendController.NewMessageAsync(m_message);
+            MessageService messageService = new MessageService();   
+            var res = messageService.NewMessage(m_message);
 
             await Clients.All.SendAsync("ReceiveMessage", name, message);
         }

@@ -11,7 +11,7 @@ namespace Backend.Services
 
         public List<Chat> GetChatsByUser(long id);
 
-        public bool NewMessageAsync(Message message);
+        public bool NewMessage(Message message);
 
         public Task<LoginDto> LoginAsync(LoginModel loginModel);
     }
