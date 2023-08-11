@@ -68,6 +68,7 @@ namespace Backend.Services
             bool res = false;   
             try
             {
+                message.DT = DateTime.Now;
                 string jsonString = JsonSerializer.Serialize(message);
                 var factory = new ConnectionFactory() { HostName = "localhost" };
                 using (var connection = factory.CreateConnection())

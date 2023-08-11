@@ -25,7 +25,7 @@ namespace UserDbSevice
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=chat_users;Username=postgres;Password=admin");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=chat_users;Username=otus;Password=otus");
         }
 
     }

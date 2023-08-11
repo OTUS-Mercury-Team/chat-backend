@@ -35,7 +35,7 @@ namespace Backend.db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userchat;Username=postgres;Password=postgres");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userchat;Username=otus;Password=otus");
         }
     }
 }

@@ -38,10 +38,10 @@ public class ChatHub : Hub
             HttpClient client = new HttpClient();
             try
             {
-                client.BaseAddress = new Uri("http://localhost:5088/api/Validate/validate");
+                client.BaseAddress = new Uri("http://localhost:5089/api/Validate/validate");
             var jwtmodel = new ValidModel(){ Jwt = jwt};
 
-                var response = await client.PostAsJsonAsync("http://localhost:5088/api/Validate/validate", jwtmodel);
+                var response = await client.PostAsJsonAsync("http://localhost:5089/api/Validate/validate", jwtmodel);
                 id = await response.Content.ReadFromJsonAsync<int>();
             }
             catch (Exception ex)
