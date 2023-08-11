@@ -1,4 +1,5 @@
 using Backend.db;
+using Backend.Services;
 using Microsoft.EntityFrameworkCore;
 using SignalRChat.Hubs;
 
@@ -24,7 +25,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-
+builder.Services.AddTransient<IMessageService, MessageService>();
 var app = builder.Build();
 
 

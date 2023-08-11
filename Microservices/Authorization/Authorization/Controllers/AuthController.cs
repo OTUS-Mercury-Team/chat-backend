@@ -1,7 +1,8 @@
-﻿using ACommonAuth.Contracts.Request;
+﻿using CommonAuth.Contracts.Request;
 using Authorization.ApplicationServices.User.Ports;
 using CommonAuth.Contracts.Response;
 using Microsoft.AspNetCore.Mvc;
+using ACommonAuth.Contracts.Request;
 
 namespace Authorization.Controllers
 {
