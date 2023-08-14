@@ -15,31 +15,54 @@
     });
     // </snippet_ReceiveMessage>
 
-    const myArrayJWT = ['eyJhbGciOiJBMTI4Q0JDLUhTMjU2IiwidHlwIjoiSldUIn0.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3RyaW5nIiwibmJmIjoxNjkxNDk4OTgxLCJleHAiOjE2OTE0OTk1ODEsImlzcyI6IkF1dG9yaXp0aW9uTWVyY3VyeSIsImF1ZCI6IkNoYXRNZXJjdXJ5In0.iKLj-pB3zvnXzRh10bLvdqMSdk95byWG_r91qGPSwHs',
-        'eyJhbGciOiJBMTI4Q0JDLUhTMjU2IiwidHlwIjoiSldUIn0.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiU2VyZyIsIm5iZiI6MTY5MTQ5OTEzOCwiZXhwIjoxNjkxNDk5NzM4LCJpc3MiOiJBdXRvcml6dGlvbk1lcmN1cnkiLCJhdWQiOiJDaGF0TWVyY3VyeSJ9.6-2XuvLyBL_P7b0JTyKTvykrbj0hd4SUttYprABoeHQ',
-    ];//'eyJhbGciOiJBMTI4Q0JDLUhTMjU2IiwidHlwIjoiSldUIn0.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTWF4IiwibmJmIjoxNjkxNDk0OTQ3LCJleHAiOjE2OTE0OTU1NDcsImlzcyI6IkF1dG9yaXp0aW9uTWVyY3VyeSIsImF1ZCI6IkNoYXRNZXJjdXJ5In0.4rHCKZWL_HrACYmtkl-YuuUVMhozuBWlxFWolDgBXYg',
-        //'eyJhbGciOiJBMTI4Q0JDLUhTMjU2IiwidHlwIjoiSldUIn0.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWxleCIsIm5iZiI6MTY5MTQ5NDk2MiwiZXhwIjoxNjkxNDk1NTYyLCJpc3MiOiJBdXRvcml6dGlvbk1lcmN1cnkiLCJhdWQiOiJDaGF0TWVyY3VyeSJ9.ZrF355HyoqeVeF5N2o-1IHJa9-5_S_ABYrgMEb3JsOc'];
-    const myArrayName = ['string',
-        'Serg'];
-        //'Max',
-        //'Alex'];
+    let jwt = "";
+    let currentUser = "";
 
-
-
-    const myArrayChatid = ['1', '2', '3'];
+    let chatId = 0;
 
     document.getElementById("send").addEventListener("click", async () => {
-        const user = document.getElementById("userInput").value;
         const message = document.getElementById("messageInput").value;
-        const randomIndex = Math.floor(Math.random() * myArrayJWT.length);
-        const randomIndexChat = Math.floor(Math.random() * myArrayChatid.length);
+        chatId = document.getElementById("chatInput").value;
+        
         // <snippet_Invoke>
         try {
-            await connection.invoke("SendMessage", myArrayName[randomIndex], message, myArrayJWT[randomIndex], myArrayChatid[randomIndexChat]);
+            await connection.invoke("SendMessage", currentUser, message, jwt, chatId);
         } catch (err) {
             console.error(err);
         }
         // </snippet_Invoke>
+    });
+
+    document.getElementById("login").addEventListener("click", async () => {
+        const user = document.getElementById("userInput").value;
+        const password = document.getElementById("passwordInput").value;
+
+        const url = "http://localhost:7135/Backend/login";
+
+        let data = {
+            "userName": user,
+            "password": password
+        };
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then((res) => {
+            return res.json();
+        }).then((data) => {
+            if (data.accessToken.length > 0) {
+                jwt = data.accessToken;
+                currentUser = data.userName;
+                console.log(data);
+                document.getElementById("current-user").textContent = "User: " + currentUser;
+                document.getElementsByClassName("login")[0].style.display = "none";
+                document.getElementsByClassName("send-message")[0].style.display = "block";
+            }
+            else alert("Error login");
+        });
     });
 
     async function start() {

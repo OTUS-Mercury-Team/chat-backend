@@ -54,8 +54,8 @@ namespace Backend.Services
         {
             HttpClient client = new HttpClient();
 
-            client.BaseAddress = new Uri("https://localhost:8227/api/Auth/login");
-            var response = await client.PostAsJsonAsync("https://localhost:8227/api/Auth/login", loginModel);
+            client.BaseAddress = new Uri("http://localhost:5089/api/Auth/login");
+            var response = await client.PostAsJsonAsync("http://localhost:5089/api/Auth/login", loginModel);
             LoginDto? loginDto = await response.Content.ReadFromJsonAsync<LoginDto>();
 
             //LoginDto loginDto = new LoginDto();
